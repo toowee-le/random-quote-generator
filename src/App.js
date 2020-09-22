@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "./components/Button";
 import "./App.css";
+import { render } from "react-dom";
 
 class App extends Component {
   constructor(props) {
@@ -27,9 +28,18 @@ class App extends Component {
   getQuoteIndex = () => {
     const { quotes } = this.state;
     const randomIndex = Math.floor(Math.random() * quotes.length);
+    // Check if array is empty otherwise return the random index
     if (!quotes.length) return;
     return randomIndex;
   };
+
+  // Get the randomly chosen quote from array
+  get selectedQuote() {
+    // Return undefined if array is empty or index is not a number
+    if (!this.state.quotes.length || !Number.isInteger(this.state.quoteIndex))
+      return;
+    return this.state.quotes[this.state.quoteIndex];
+  }
 
   handleNextQuoteClick = () => {
     console.log("clicked");
@@ -38,6 +48,9 @@ class App extends Component {
   render() {
     return (
       <div className="App" id="quote-box">
+        {this.selectedQuote
+          ? `${this.selectedQuote.quote} - ${this.selectedQuote.author} `
+          : ""}
         <Button handleClick={this.handleNextQuoteClick} />
       </div>
     );
