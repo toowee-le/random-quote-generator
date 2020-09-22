@@ -20,12 +20,12 @@ class App extends Component {
       .then((response) => response.json())
       .then((quotes) =>
         this.setState({ quotes }, () =>
-          this.setState({ quoteIndex: this.getQuoteIndex })
+          this.setState({ quoteIndex: this.generateRandomQuoteIndex })
         )
       );
   }
 
-  getQuoteIndex = () => {
+  generateRandomQuoteIndex = () => {
     const { quotes } = this.state;
     const randomIndex = Math.floor(Math.random() * quotes.length);
     // Check if array is empty otherwise return the random index
@@ -37,12 +37,12 @@ class App extends Component {
   get selectedQuote() {
     // Return undefined if array is empty or index is not a number
     if (!this.state.quotes.length || !Number.isInteger(this.state.quoteIndex))
-      return;
+      return undefined;
     return this.state.quotes[this.state.quoteIndex];
   }
 
   handleNextQuoteClick = () => {
-    this.setState({ quoteIndex: this.getQuoteIndex() });
+    this.setState({ quoteIndex: this.generateRandomQuoteIndex() });
   };
 
   render() {
