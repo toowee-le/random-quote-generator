@@ -9,7 +9,6 @@ class App extends Component {
       quotes: [],
       quoteIndex: null,
     };
-    this.getQuoteIndex = this.getQuoteIndex.bind(this);
   }
 
   // Fetch quotes from an API
@@ -25,19 +24,18 @@ class App extends Component {
       );
   }
 
-  getQuoteIndex() {
+  getQuoteIndex = () => {
     const { quotes } = this.state;
     const randomIndex = Math.floor(Math.random() * quotes.length);
     if (!quotes.length) return;
     return randomIndex;
-  }
+  };
 
-  handleNextQuoteClick() {
+  handleNextQuoteClick = () => {
     console.log("clicked");
-  }
+  };
 
   render() {
-    console.log(this.state.quoteIndex);
     return (
       <div className="App" id="quote-box">
         <Button handleClick={this.handleNextQuoteClick} />
