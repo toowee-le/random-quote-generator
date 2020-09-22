@@ -20,7 +20,7 @@ class App extends Component {
       .then((response) => response.json())
       .then((quotes) =>
         this.setState({ quotes }, () =>
-          this.setState({ quoteIndex: this.getQuoteIndex() })
+          this.setState({ quoteIndex: this.getQuoteIndex })
         )
       );
   }
@@ -42,7 +42,7 @@ class App extends Component {
   }
 
   handleNextQuoteClick = () => {
-    console.log("clicked");
+    this.setState({ quoteIndex: this.getQuoteIndex() });
   };
 
   render() {
