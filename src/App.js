@@ -54,10 +54,15 @@ class App extends Component {
   render() {
     return (
       <div className="App" id="quote-box">
-        {this.selectedQuote
-          ? `${this.selectedQuote.quote} - ${this.selectedQuote.author} `
-          : ""}
-        <Button handleClick={this.handleNextQuoteClick} />
+        <div className="quote" id="text">
+          {this.selectedQuote ? this.selectedQuote.quote : ""}
+        </div>
+        <div className="author" id="author">
+          {this.selectedQuote ? this.selectedQuote.author : ""}
+        </div>
+        <div id="new-quote">
+          <Button handleClick={this.handleNextQuoteClick} />
+        </div>
       </div>
     );
   }
