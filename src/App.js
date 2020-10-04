@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Button from "./components/Button";
-import "./App.css";
+import QuoteGenerator from "./components/QuoteGenerator";
+import "./App.scss";
 
 class App extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       quotes: [],
       quoteIndex: null,
@@ -19,33 +19,38 @@ class App extends Component {
       "https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json";
     fetch(apiURL)
       .then((response) => response.json())
-      .then((quotes) =>
-        this.setState({ quotes }, () =>
-          this.setState({ quoteIndex: this.generateRandomQuoteIndex })
+      .then((quotesData) =>
+        this.setState({ quotes: quotesData }, () =>
+          this.setState({ quoteIndex: this.generateRandomQuoteIndex() })
         )
       );
   }
 
   /**
-   * @description Returns a random integer between 0 and the length of the array to represent an index in this.state.quotes.
+   * @description Retrieve the selected quote from array.
+   * If array is empty or index is not a number, return undefined.
+   */
+
+  get selectedQuote() {
+    if (!this.state.quotes.length || !Number.isInteger(this.state.quoteIndex)) {
+      return undefined;
+    } else {
+      return this.state.quotes[this.state.quoteIndex];
+    }
+  }
+
+  /**
+   * @description Returns a random integer between 0 and the length of the array to represent an index in the array of quotes.
    * If array is empty, return undefined.
    */
   generateRandomQuoteIndex = () => {
     const { quotes } = this.state;
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    if (!quotes.length) return;
-    return randomIndex;
+    const randomIndex = Math.floor(Math.random() * quotes.length - 1);
+    if (!quotes.length) return undefined;
+    else {
+      return randomIndex;
+    }
   };
-
-  /**
-   * @description Retrieve the selected quote from array (this.state.quotes).
-   * If array is empty or index is not a number, return undefined.
-   */
-  get selectedQuote() {
-    if (!this.state.quotes.length || !Number.isInteger(this.state.quoteIndex))
-      return undefined;
-    return this.state.quotes[this.state.quoteIndex];
-  }
 
   handleNextQuoteClick = () => {
     this.setState({ quoteIndex: this.generateRandomQuoteIndex() });
@@ -54,15 +59,10 @@ class App extends Component {
   render() {
     return (
       <div className="App" id="quote-box">
-        <div className="quote" id="text">
-          {this.selectedQuote ? this.selectedQuote.quote : ""}
-        </div>
-        <div className="author" id="author">
-          {this.selectedQuote ? this.selectedQuote.author : ""}
-        </div>
-        <div id="new-quote">
-          <Button handleClick={this.handleNextQuoteClick} />
-        </div>
+        <QuoteGenerator
+          selectedQuote={this.selectedQuote}
+          handleNextQuoteClick={this.handleNextQuoteClick}
+        />
       </div>
     );
   }
