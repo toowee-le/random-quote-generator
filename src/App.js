@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import QuoteGenerator from "./components/QuoteGenerator";
+import TweetQuote from "./components/TweetQuote";
 import "./App.scss";
 
 class App extends Component {
@@ -59,10 +60,13 @@ class App extends Component {
   render() {
     return (
       <div className="App" id="quote-box">
-        <QuoteGenerator
-          selectedQuote={this.selectedQuote}
-          handleNextQuoteClick={this.handleNextQuoteClick}
-        />
+        <div className="buttons">
+          <QuoteGenerator
+            selectedQuote={this.selectedQuote}
+            handleNextQuoteClick={this.handleNextQuoteClick}
+          />
+          <TweetQuote />
+        </div>
       </div>
     );
   }
