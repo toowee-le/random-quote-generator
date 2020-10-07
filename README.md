@@ -8,6 +8,10 @@ The app passes all of freeCodeCamp's user stories and tests: [https://www.freeco
 
 Technologies used: HTML, SCSS & React
 
+### Demo
+
+![Random Quote Generator](public/demo.gif)
+
 ## How to run the app locally
 
 ```
