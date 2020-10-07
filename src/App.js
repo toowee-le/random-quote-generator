@@ -59,13 +59,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" id="quote-box">
-        <div className="buttons">
-          <QuoteGenerator
-            selectedQuote={this.selectedQuote}
-            handleNextQuoteClick={this.handleNextQuoteClick}
-          />
-          <TweetQuote />
+      <div className="container">
+        <div className="App" id="quote-box">
+          <QuoteGenerator selectedQuote={this.selectedQuote} />
+          <TweetQuote handleNextQuoteClick={this.handleNextQuoteClick} />
         </div>
       </div>
     );
